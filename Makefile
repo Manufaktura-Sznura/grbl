@@ -12,6 +12,11 @@ clean:
 
 PROGRAMMER_TYPE ?= arduino
 DEVICE ?= atmega328p
-PORT ?= "undefined"
-flash:
+
+require-env-PORT:
+ifndef PORT
+	$(error PORT env is undefined)
+endif
+
+flash: $(HEX) require-env-PORT
 	avrdude -c $(PROGRAMMER_TYPE) -P $(PORT) -p $(DEVICE) -U flash:w:$(HEX):i
