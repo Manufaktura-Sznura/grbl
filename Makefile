@@ -1,10 +1,17 @@
 # This Makefile launches compilation inside of Docker.
 
 # symbolic targets:
-all:	grbl.hex
+HEX = grbl.hex
+all: $(HEX)
 
-grbl.hex: 
+$(HEX): 
 	docker run --rm -it -v "${PWD}":/source tiryoh/grbl-builder:latest make --makefile Makefile.compilation
 
 clean:
-	rm -f grbl.hex $(BUILDDIR)/*.o $(BUILDDIR)/*.d $(BUILDDIR)/*.elf
+	rm -f $(HEX) $(BUILDDIR)/*.o $(BUILDDIR)/*.d $(BUILDDIR)/*.elf
+
+PROGRAMMER_TYPE ?= arduino
+DEVICE ?= atmega328p
+PORT ?= "undefined"
+flash:
+	avrdude -c $(PROGRAMMER_TYPE) -P $(PORT) -p $(DEVICE) -U flash:w:$(HEX):i
