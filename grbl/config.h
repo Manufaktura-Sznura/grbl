@@ -35,6 +35,7 @@
 // If doing so, simply comment out these two defines and see instructions below.
 // #define DEFAULTS_GENERIC
 #define DEFAULTS_MANUFAKTURA_SZNURA
+#define KEYES_CLONE true   // Using Keyes-CNC clone
 #define CPU_MAP_ATMEGA328P // Arduino Uno CPU
 
 // Serial baud rate
